@@ -1,0 +1,57 @@
+<?php
+session_start();
+if (!isset($_SESSION['logado'])) {
+    header("Location: login.php");
+    exit();
+}
+include("conexao.php");
+$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
+?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestão de Artigos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.php">Home</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="backend.php">Backend</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+  <h1>Gestão de Artigos</h1>
+  <p>Bem-vindo, <?= $_SESSION['email'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
+  <a href="inserir_artigo.php" class="btn btn-success mb-3">Novo Artigo</a>
+  <table class="table table-striped">
+    <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Ações</th></tr>
+    <?php while ($row = $result->fetch_assoc()) : ?>
+      <tr>
+        <td><?= htmlspecialchars($row['artigo']) ?></td>
+        <td>€<?= number_format($row['preco'], 2, ',', '.') ?></td>
+        <td><img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" width="60"></td>
+        <td>
+          <a href="editar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-warning btn-sm">Editar</a>
+          <a href="eliminar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+  </table>
+</body>
+</html>
