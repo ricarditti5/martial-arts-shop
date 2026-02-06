@@ -27,13 +27,13 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
                     <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Luvas</a>
+                    <a class="nav-link" href="luvas.php">Luvas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Caneleiras</a>
+                    <a class="nav-link" href="caneleiras.php">Caneleiras</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Acessórios</a>
+                    <a class="nav-link" href="acessorios.php">Acessórios</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="login.php">Login</a>
@@ -46,18 +46,18 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
             </div>
           </nav>
   <h1>Gestão de Artigos</h1>
-  <p>Bem-vindo, <?= $_SESSION['email'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
+  <p>Bem-vindo, <?= $_SESSION['nome'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
   <a href="inserir_artigo.php" class="btn btn-success mb-3">Novo Artigo</a>
   <table class="table table-striped">
-    <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Ações</th></tr>
+    <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Stock</th></tr>
     <?php while ($row = $result->fetch_assoc()) : ?>
       <tr>
-        <td><?= htmlspecialchars($row['artigo']) ?></td>
+        <td><?= htmlspecialchars($row['artigos']) ?></td>
         <td>€<?= number_format($row['preco'], 2, ',', '.') ?></td>
         <td><img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" width="60"></td>
         <td>
-          <a href="editar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-warning btn-sm">Editar</a>
-          <a href="eliminar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+          <a href="editar_artigo.php?id=<?= $row['id_artigos'] ?>" class="btn btn-warning btn-sm">Editar</a>
+          <a href="eliminar_artigo.php?id=<?= $row['id_artigos'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
         </td>
       </tr>
     <?php endwhile; ?>

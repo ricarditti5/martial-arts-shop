@@ -13,7 +13,7 @@ $resultado = $stmt->get_result();
 
 if ($resultado->num_rows === 1) {
     $_SESSION['logado'] = true;
-    //$_SESSION['nome'] = $resultado->fetch_assoc()['nome'];
+    $_SESSION['nome'] = $resultado->fetch_assoc()['nome'];
 	$_SESSION['email'] = $resultado->fetch_assoc()['email'];
     header("Location: backend.php");
 } else {

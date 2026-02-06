@@ -2,17 +2,17 @@
 include("conexao.php");
 session_start();
 
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_email'])) {
     header("Location: login.php");
     exit();
 }
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['user_id'])) {
     header("Location: backend.php");
     exit();
 }
 
-$id = $_GET['id'];
+$id = $_GET['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $artigo = $_POST['artigo'];
