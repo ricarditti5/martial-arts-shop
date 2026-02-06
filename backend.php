@@ -5,7 +5,7 @@ if (!isset($_SESSION['logado'])) {
     exit();
 }
 include("conexao.php");
-$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
+$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -24,13 +24,22 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Luvas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Caneleiras</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Acessórios</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="login.php">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="backend.php">Backend</a>
+                    <a class="nav-link" href="backend.php">Cofigurações</a>
                   </li>
                 </ul>
               </div>

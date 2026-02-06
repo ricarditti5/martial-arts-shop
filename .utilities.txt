@@ -1,0 +1,2 @@
+INSERT INTO artigos(Prod_cod, Prod_name, Prod_image, Prod_price) VALUES ("","","","");
+http://localhost/php-psi/Projeto-psi/martial-arts-shop/index.php

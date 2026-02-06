@@ -1,6 +1,6 @@
 <?php
 include("conexao.php");
-$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
+$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -34,7 +34,7 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
                     <a class="nav-link" href="login.php">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="backend.php">Backend</a>
+                    <a class="nav-link" href="backend.php">User</a>
                   </li>
                 </ul>
               </div>
@@ -47,7 +47,7 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigo DESC");
         <div class="card mb-3">
           <img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" class="card-img-top" alt="Imagem">
           <div class="card-body">
-            <h5 class="card-title"><?= htmlspecialchars($row['artigo']) ?></h5>
+            <h5 class="card-title"><?= htmlspecialchars($row['artigos']) ?></h5>
             <p class="card-text"><strong>Preço:</strong> €<?= number_format($row['preco'], 2, ',', '.') ?></p>
           </div>
         </div>

@@ -5,7 +5,7 @@ include("conexao.php");
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-$sql = "SELECT * FROM users WHERE email = ? AND pass = ?";
+$sql = "SELECT * FROM users WHERE user_email = ? AND user_pass = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $email, $senha);
 $stmt->execute();
