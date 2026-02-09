@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Fev-2026 às 16:51
+-- Tempo de geração: 09-Fev-2026 às 13:16
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -18,32 +18,32 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `mas-db`
+-- Banco de dados: `m11-mas`
 --
-CREATE DATABASE IF NOT EXISTS `mas-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `mas-db`;
+CREATE DATABASE IF NOT EXISTS `m11-mas` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `m11-mas`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `artigos`
+-- Estrutura da tabela `artigo`
 --
 
-DROP TABLE IF EXISTS `artigos`;
-CREATE TABLE `artigos` (
+DROP TABLE IF EXISTS `artigo`;
+CREATE TABLE `artigo` (
   `id_artigo` int(11) NOT NULL,
   `artigo` varchar(40) NOT NULL,
   `imagem` varchar(1000) NOT NULL,
-  `preco` decimal(11,2) NOT NULL
+  `preco` decimal(11,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `artigos`
+-- Extraindo dados da tabela `artigo`
 --
 
-INSERT INTO `artigos` (`id_artigo`, `artigo`, `imagem`, `preco`) VALUES
-(1, 'Luvas MMA', 'luvMMA.jpeg', 12.00),
-(2, 'Caneleiras MMA', 'canMMA.jpeg', 29.00);
+INSERT DELAYED IGNORE INTO `artigo` (`id_artigo`, `artigo`, `imagem`, `preco`) VALUES
+(1, 'Luvas MMA', 'luvMMA.jpg', 13),
+(2, 'Caneleiras de MMA', 'canMMA.jpg', 22);
 
 -- --------------------------------------------------------
 
@@ -63,17 +63,18 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_pass`) VALUES
-(1, 'Ricardo', 'ricarditti5@gmail.com', 1234);
+INSERT DELAYED IGNORE INTO `users` (`user_id`, `user_name`, `user_email`, `user_pass`) VALUES
+(1, 'Ricardo', 'ricarditti5@gmail.com', 1234),
+(3, 'Gonçalo', 'goncalo@gmail.com', 1234);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `artigos`
+-- Índices para tabela `artigo`
 --
-ALTER TABLE `artigos`
+ALTER TABLE `artigo`
   ADD PRIMARY KEY (`id_artigo`);
 
 --
@@ -87,16 +88,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT de tabela `artigos`
+-- AUTO_INCREMENT de tabela `artigo`
 --
-ALTER TABLE `artigos`
-  MODIFY `id_artigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `artigo`
+  MODIFY `id_artigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

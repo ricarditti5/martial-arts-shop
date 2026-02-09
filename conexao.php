@@ -2,7 +2,7 @@
 $host = "localhost";
 $usuario = "root";
 $senha = "";
-$base_dados = "mas-db";
+$base_dados = "m11-mas";
 
 $conn = new mysqli($host, $usuario, $senha, $base_dados);
 if ($conn->connect_error) {

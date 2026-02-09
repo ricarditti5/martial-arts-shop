@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h2>Inserir Novo Artigo</h2>
     <form action="inserir_artigo.php" method="POST">
         <div class="mb-3">
-            <label for="artigo" class="form-label">Descrição</label>
+            <label for="artigo" class="form-label">Nome do Artigo</label>
             <input type="text" class="form-control" name="artigo" id="artigo" required>
         </div>
         <div class="mb-3">

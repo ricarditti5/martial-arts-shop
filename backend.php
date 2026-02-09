@@ -5,7 +5,7 @@ if (!isset($_SESSION['logado'])) {
     exit();
 }
 include("conexao.php");
-$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
+$result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -39,7 +39,10 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
                     <a class="nav-link" href="login.php">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="backend.php">Cofigurações</a>
+                    <a class="nav-link" href="criar_conta.php">Criar Conta</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="backend.php">User</a>
                   </li>
                 </ul>
               </div>
@@ -52,12 +55,12 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
     <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Stock</th></tr>
     <?php while ($row = $result->fetch_assoc()) : ?>
       <tr>
-        <td><?= htmlspecialchars($row['artigos']) ?></td>
+        <td><?= htmlspecialchars($row['artigo']) ?></td>
         <td>€<?= number_format($row['preco'], 2, ',', '.') ?></td>
         <td><img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" width="60"></td>
         <td>
-          <a href="editar_artigo.php?id=<?= $row['id_artigos'] ?>" class="btn btn-warning btn-sm">Editar</a>
-          <a href="eliminar_artigo.php?id=<?= $row['id_artigos'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+          <a href="editar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-warning btn-sm">Editar</a>
+          <a href="eliminar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
         </td>
       </tr>
     <?php endwhile; ?>
