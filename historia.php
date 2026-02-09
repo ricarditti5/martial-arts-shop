@@ -1,6 +1,6 @@
 <?php
 include("conexao.php");
-$result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
+$result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -19,7 +19,7 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
+                  <a class="nav-link active" aria-current="page" href="historia.php">Historias das Artes Marciais</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="luvas.php">Luvas</a>
@@ -34,25 +34,18 @@ $result = $conn->query("SELECT * FROM artigos ORDER BY id_artigos DESC");
                     <a class="nav-link" href="login.php">Login</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="criar_conta.php">Criar Conta</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="backend.php">User</a>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-  <h1>Artigos Disponíveis</h1>
+  <h1>História das Artes Marciais: MMA e Kickboxe</h1>
   <div class="row">
-    <?php while ($row = $result->fetch_assoc()) : ?>
-      <div class="col-md-4">
-        <div class="card mb-3">
-          <img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" class="card-img-top" alt="Imagem">
-          <div class="card-body">
-            <h5 class="card-title"><?= htmlspecialchars($row['artigos']) ?></h5>
-            <p class="card-text"><strong>Preço:</strong> €<?= number_format($row['preco'], 2, ',', '.') ?></p>
-          </div>
-        </div>
-      </div>
-    <?php endwhile; ?>
+    
   </div>
 </body>
 </html>

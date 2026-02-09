@@ -10,7 +10,7 @@ if (!isset($_SESSION['email'])) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $stmt = $conn->prepare("DELETE FROM artigos WHERE id_artigo=?");
+    $stmt = $conn->prepare("DELETE FROM artigo WHERE id_artigo=?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
 }

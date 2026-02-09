@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $preco = $_POST['preco'];
     $imagem = $_POST['imagem'];
 
-    $stmt = $conn->prepare("INSERT INTO artigos (artigo, preco, imagem) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem) VALUES (?, ?, ?)");
     $stmt->bind_param("sds", $artigo, $preco, $imagem);
     $stmt->execute();
 
