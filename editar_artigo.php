@@ -7,7 +7,10 @@ if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
-
+/*if($_SESSION['type_user']!== "admin"){
+    echo "Acesso Negado";
+    exit();
+}*/
 // O backend envia o parâmetro ?id=...
 if (!isset($_GET['id'])) {
     header("Location: backend.php");
@@ -58,6 +61,16 @@ $artigo = $result->fetch_assoc();
         <div class="mb-3">
             <label>Imagem</label>
             <input type="text" class="form-control" name="imagem" value="<?= $artigo['imagem'] ?>" required>
+        </div>
+        <div class="mb-3">
+        
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-control" name="categoria" id="categoria" required>
+                <option>Luvas</option>
+                <option>Caneleiras</option>
+                <option>Roupas</option>
+                <option>Proteção Facial/Bucal</option>
+            </select>
         </div>
         <div class="mb-3">
             <label>Stock</label>

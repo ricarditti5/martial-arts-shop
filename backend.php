@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['logado'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['logado']) || $_SESSION['type_user'] !== 'admin'){
+  header("Refresh: 5, url=login.php "); 
+  exit();
+}
+else if (isset($_SESSION['logado']) && $_SESSION['type_user'] !== 'admin') {
+    header("Location: index.php");
     exit();
 }
+
 include("conexao.php");
 $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
 ?>
@@ -58,9 +63,7 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
         <td><?= htmlspecialchars($row['artigo']) ?></td>
         <td>€<?= number_format($row['preco'], 2, ',', '.') ?></td>
         <td><img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" width="60"></td>
-        <td class="pt-3">
-        <td <?= $artigo['stock'] >= 1 ? 'Disponivel' : 'Indisponivel' ?>></td>
-        </td>
+        <td <?= htmlspecialchars($row['stock'] )>= 1 ? "Disponivel" : "Indisponivel" ?>></td>
         <td class="pt-3">
         <a href="editar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-warning btn-sm">Editar</a>
         <a href="eliminar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-danger btn-sm">Eliminar</a>

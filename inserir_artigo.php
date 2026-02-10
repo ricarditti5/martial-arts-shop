@@ -6,14 +6,19 @@ if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
-
+/**if($_SESSION['type_user']!== "admin"){
+    echo "Acesso Negado";
+    exit();
+} */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $artigo = $_POST['artigo'];
     $preco = $_POST['preco'];
     $imagem = $_POST['imagem'];
+    $stock = $_POST['stock'];
+    $categoria = $_POST['categoria'];
 
-    $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem) VALUES (?, ?, ?)");
-    $stmt->bind_param("sds", $artigo, $preco, $imagem);
+    $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem, stock, categoria) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sdsss", $artigo, $preco, $imagem,$stock,$categoria);
     $stmt->execute();
 
     header("Location: backend.php");
@@ -42,6 +47,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <label for="imagem" class="form-label">Nome do ficheiro da imagem</label>
             <input type="text" class="form-control" name="imagem" id="imagem" required>
+        </div>
+        <div class="mb-3">
+        
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-control" name="categoria" id="categoria" required>
+                <option>Luvas</option>
+                <option>Caneleiras</option>
+                <option>Roupas</option>
+                <option>Proteção Facial/Bucal</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-success">Inserir</button>
         <a href="backend.php" class="btn btn-secondary">Voltar</a>

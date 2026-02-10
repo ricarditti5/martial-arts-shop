@@ -12,7 +12,7 @@ if ($email === '' || $senha === '') {
 }
 
 // Procura o utilizador pelo email
-$sql = "SELECT user_name, user_email, user_pass FROM users WHERE user_email = ? LIMIT 1";
+$sql = "SELECT user_name, user_email, user_pass, type_user FROM users WHERE user_email = ? LIMIT 1";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
@@ -34,6 +34,7 @@ if ($resultado && $resultado->num_rows === 1) {
         $_SESSION['logado'] = true;
         $_SESSION['nome']   = $user['user_name'];
         $_SESSION['email']  = $user['user_email'];
+        $_SESSION['type_user'] = $user['type_user'];
         header("Location: backend.php");
         exit();
     } else {
