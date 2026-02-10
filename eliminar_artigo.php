@@ -1,16 +1,17 @@
 <?php
-include("conexao.php");
 session_start();
+include("conexao.php");
 
-if (!isset($_SESSION['email'])) {
+// Garante que só utilizadores autenticados podem eliminar
+if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = (int) $_GET['id'];
 
-    $stmt = $conn->prepare("DELETE FROM artigo WHERE id_artigo=?");
+    $stmt = $conn->prepare("DELETE FROM artigo WHERE id_artigo = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
 }

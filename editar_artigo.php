@@ -1,25 +1,27 @@
 <?php
-include("conexao.php");
 session_start();
+include("conexao.php");
 
-if (!isset($_SESSION['user_email'])) {
+// Garante que só utilizadores autenticados acedem
+if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
 
-if (!isset($_GET['user_id'])) {
+// O backend envia o parâmetro ?id=...
+if (!isset($_GET['id'])) {
     header("Location: backend.php");
     exit();
 }
 
-$id = $_GET['user_id'];
+$id = (int) $_GET['id'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $artigo = $_POST['artigo'];
-    $preco = $_POST['preco'];
-    $imagem = $_POST['imagem'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $artigo = $_POST['artigo'] ?? '';
+    $preco  = $_POST['preco']  ?? 0;
+    $imagem = $_POST['imagem'] ?? '';
 
-    $stmt = $conn->prepare("UPDATE artigos SET artigo=?, preco=?, imagem=? WHERE id_artigo=?");
+    $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ? WHERE id_artigo = ?");
     $stmt->bind_param("sdsi", $artigo, $preco, $imagem, $id);
     $stmt->execute();
 
@@ -27,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT * FROM artigos WHERE id_artigo=?");
+// Buscar dados atuais do artigo
+$stmt = $conn->prepare("SELECT * FROM artigo WHERE id_artigo = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -55,6 +58,13 @@ $artigo = $result->fetch_assoc();
         <div class="mb-3">
             <label>Imagem</label>
             <input type="text" class="form-control" name="imagem" value="<?= $artigo['imagem'] ?>" required>
+        </div>
+        <div class="mb-3">
+            <label>Stock</label>
+            <select class="form-control" name="stock" required>
+                <option value="1" <?= $artigo['stock'] == 1 ? 'selected' : '' ?>>Disponível</option>
+                <option value="1" <?= $artigo['stock'] == 0 ? 'selected' : '' ?>>Indisponível</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="backend.php" class="btn btn-secondary">Cancelar</a>

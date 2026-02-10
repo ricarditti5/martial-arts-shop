@@ -13,6 +13,8 @@
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white">
           <div class="card-body p-5 text-center">
+          <a class="navbar-brand" href="index.php">Home</a>
+          <hr>
             <form action="valida_user.php" method="POST">
               <h2 class="fw-bold mb-2 text-uppercase">Criar Conta</h2>
               <p class="text-white-50 mb-4">Introduza o seu nome, email e palavra-passe</p>
@@ -32,6 +34,7 @@
                 <input type="password" name="senha" class="form-control form-control-lg" required/>
                 <label class="form-label">Password</label>
               </div>
+              <a class="text-white-50 mb-4" href="login.php">Fazer login</a><br><br>
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Criar Cadastro</button>
             </form>
