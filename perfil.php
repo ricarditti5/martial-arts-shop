@@ -85,7 +85,7 @@ $tipo  = $_SESSION['type_user'] ?? 'user';
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-4 text-muted">Cargo:</div>
+                        <div class="col-4 text-muted">Tipo de Utilizador:</div>
                         <div class="col-8">
                             <span class="badge <?php echo ($tipo === 'admin') ? 'bg-danger' : 'bg-secondary'; ?>">
                                 <?php echo htmlspecialchars($tipo); ?>

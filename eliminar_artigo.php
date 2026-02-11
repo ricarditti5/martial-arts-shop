@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("conexao.php");
 
 // Garante que só utilizadores autenticados podem eliminar

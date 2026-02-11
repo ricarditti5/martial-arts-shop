@@ -1,17 +1,11 @@
 <?php
-session_start();
 include("conexao.php");
 
-// Garante que só utilizadores autenticados acedem
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
-/*if($_SESSION['type_user']!== "admin"){
-    echo "Acesso Negado";
-    exit();
-}*/
-// O backend envia o parâmetro ?id=...
+
 if (!isset($_GET['id'])) {
     header("Location: backend.php");
     exit();
@@ -19,25 +13,44 @@ if (!isset($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $artigo = $_POST['artigo'] ?? '';
-    $preco  = $_POST['preco']  ?? 0;
-    $imagem = $_POST['imagem'] ?? '';
-
-    $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ? WHERE id_artigo = ?");
-    $stmt->bind_param("sdsi", $artigo, $preco, $imagem, $id);
-    $stmt->execute();
-
-    header("Location: backend.php");
-    exit();
-}
-
-// Buscar dados atuais do artigo
+// 1. Buscar os dados atuais para preencher o formulário e saber a imagem atual
 $stmt = $conn->prepare("SELECT * FROM artigo WHERE id_artigo = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$result = $stmt->get_result();
-$artigo = $result->fetch_assoc();
+$dadosAtuais = $stmt->get_result()->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $artigo    = $_POST['artigo'];
+    $preco     = $_POST['preco'];
+    $categoria = $_POST['categoria'];
+    
+    // Por padrão, a imagem continua a ser a que já estava na BD
+    $nomeFinal = $dadosAtuais['imagem']; 
+
+    // 2. Verificar se o utilizador carregou uma NOVA imagem
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
+        $nomeOriginal = $_FILES['imagem']['name'];
+        $tmp          = $_FILES['imagem']['tmp_name'];
+        
+        // Se queres o nome original exato:
+        $nomeFinal = str_replace(' ', '_', $nomeOriginal);
+        $destino   = 'imagens/' . $nomeFinal;
+
+        // Só faz o upload se o ficheiro não existir ou se quiseres sobrescrever
+        move_uploaded_file($tmp, $destino);
+    }
+
+    // 3. Update (repara que o bind_param usa "sdssi" -> string, double, string, string, integer)
+    $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ?, categoria = ? WHERE id_artigo = ?");
+    $stmt->bind_param("sdssi", $artigo, $preco, $nomeFinal, $categoria, $id);
+
+    if ($stmt->execute()) {
+        header("Location: backend.php?editado=1");
+        exit();
+    } else {
+        echo "Erro ao atualizar: " . $conn->error;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,37 +62,36 @@ $artigo = $result->fetch_assoc();
 </head>
 <body class="container mt-5">
     <h2>Editar Artigo</h2>
-    <form method="POST">
+    <form action="editar_artigo.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
-            <label>Descrição</label>
-            <input type="text" class="form-control" name="artigo" value="<?= $artigo['artigo'] ?>" required>
+            <label class="form-label">Nome do Artigo</label>
+            <input type="text" class="form-control" name="artigo" value="<?= $dadosAtuais['artigo'] ?>" required>
         </div>
-        <div class="mb-3">
-            <label>Preço</label>
-            <input type="number" step="0.01" class="form-control" name="preco" value="<?= $artigo['preco'] ?>" required>
-        </div>
-        <div class="mb-3">
-            <label>Imagem</label>
-            <input type="text" class="form-control" name="imagem" value="<?= $artigo['imagem'] ?>" required>
-        </div>
-        <div class="mb-3">
         
-            <label for="categoria" class="form-label">Categoria</label>
-            <select class="form-control" name="categoria" id="categoria" required>
-                <option>Luvas</option>
-                <option>Caneleiras</option>
-                <option>Roupas</option>
-                <option>Proteção Facial/Bucal</option>
-            </select>
-        </div>
         <div class="mb-3">
-            <label>Stock</label>
-            <select class="form-control" name="stock" required>
-                <option value="1" <?= $artigo['stock'] == 1 ? 'selected' : '' ?>>Disponível</option>
-                <option value="1" <?= $artigo['stock'] == 0 ? 'selected' : '' ?>>Indisponível</option>
+            <label class="form-label">Preço</label>
+            <input type="number" step="0.01" class="form-control" name="preco" value="<?= $dadosAtuais['preco'] ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Imagem Atual:</label><br>
+            <img src="imagens/<?= $dadosAtuais['imagem'] ?>" width="100" class="mb-2 img-thumbnail">
+            <br>
+            <label class="form-label">Substituir Imagem (Deixe vazio para manter a atual)</label>
+            <input class="form-control" type="file" name="imagem" accept="image/*">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoria</label>
+            <select class="form-control" name="categoria" required>
+                <option <?= $dadosAtuais['categoria'] == 'Luvas' ? 'selected' : '' ?>>Luvas</option>
+                <option <?= $dadosAtuais['categoria'] == 'Caneleiras' ? 'selected' : '' ?>>Caneleiras</option>
+                <option <?= $dadosAtuais['categoria'] == 'Roupas' ? 'selected' : '' ?>>Roupas</option>
+                <option <?= $dadosAtuais['categoria'] == 'Proteção Facial/Bucal' ? 'selected' : '' ?>>Proteção Facial/Bucal</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+
+        <button type="submit" class="btn btn-primary">Guardar Alterações</button>
         <a href="backend.php" class="btn btn-secondary">Cancelar</a>
     </form>
 </body>
