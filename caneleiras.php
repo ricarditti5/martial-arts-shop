@@ -13,7 +13,7 @@ $result = $stmt->get_result();
   <title>Artigos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-4">
+<body class="container mt-4 bg-black text-white">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
               <a class="navbar-brand" href="index.php">Home</a>

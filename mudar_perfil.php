@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Meu Perfil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
+<body class="container mt-4 bg-black text-white">
     <div class="card p-4 shadow">
         <h2>Editar Perfil</h2>
         

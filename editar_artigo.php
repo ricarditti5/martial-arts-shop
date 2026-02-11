@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Editar Artigo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
+<body class="container mt-4 bg-black text-white">
     <h2>Editar Artigo</h2>
     <form action="editar_artigo.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
