@@ -1,7 +1,6 @@
 <?php
 include("conexao.php");
 
-// Garante que só utilizadores autenticados podem eliminar
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();

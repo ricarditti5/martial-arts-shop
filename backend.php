@@ -55,7 +55,7 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
                             <strong><a class="nav-link" href="backend.php">Configurações de Admin</a></strong>
                         </li>
                     <?php 
-                    } // Aqui fechamos o IF com uma chave, o que elimina o erro do 'endif'
+                    } // Aqui fecha o IF com uma chave, o que elimina o erro do 'endif'
                     ?>
                   <li class="nav-item">
                     <strong><a class="nav-link" href="perfil.php">Perfil</a></strong>
@@ -68,7 +68,7 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
   <p>Bem-vindo, <?= $_SESSION['nome'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
   <a href="inserir_artigo.php" class="btn btn-success mb-3">Novo Artigo</a>
   <table class="table table-striped">
-  <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Stock</th></tr>
+  <tr><th>Artigo</th><th>Preço</th><th>Imagem</th></tr>
     <?php while ($row = $result->fetch_assoc()) : ?>
       <tr>
         <td><?= htmlspecialchars($row['artigo']) ?></td>

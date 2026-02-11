@@ -13,7 +13,6 @@ if (!isset($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-// 1. Buscar os dados atuais para preencher o formulário e saber a imagem atual
 $stmt = $conn->prepare("SELECT * FROM artigo WHERE id_artigo = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -24,23 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $preco     = $_POST['preco'];
     $categoria = $_POST['categoria'];
     
-    // Por padrão, a imagem continua a ser a que já estava na BD
+    //msm imagem da db
     $nomeFinal = $dadosAtuais['imagem']; 
 
-    // 2. Verificar se o utilizador carregou uma NOVA imagem
+    //verificar se o utilizador carregou uma imagem nova
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
         $nomeOriginal = $_FILES['imagem']['name'];
         $tmp          = $_FILES['imagem']['tmp_name'];
         
-        // Se queres o nome original exato:
+        // Nome original:
         $nomeFinal = str_replace(' ', '_', $nomeOriginal);
         $destino   = 'imagens/' . $nomeFinal;
 
-        // Só faz o upload se o ficheiro não existir ou se quiseres sobrescrever
         move_uploaded_file($tmp, $destino);
     }
 
-    // 3. Update (repara que o bind_param usa "sdssi" -> string, double, string, string, integer)
     $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ?, categoria = ? WHERE id_artigo = ?");
     $stmt->bind_param("sdssi", $artigo, $preco, $nomeFinal, $categoria, $id);
 

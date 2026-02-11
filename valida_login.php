@@ -11,7 +11,7 @@ if ($email === '' || $senha === '') {
     exit();
 }
 
-// Procura o utilizador pelo email
+// Procura o user pelo email
 $sql = "SELECT user_name, user_email, user_pass, type_user FROM users WHERE user_email = ? LIMIT 1";
 $stmt = $conn->prepare($sql);
 
@@ -29,7 +29,6 @@ if ($resultado && $resultado->num_rows === 1) {
     $user = $resultado->fetch_assoc();
 
     // Como o registo está a gravar a password em texto simples,
-    // fazemos a comparação direta (aqui removemos espaços acidentais).
     if (trim($user['user_pass']) === $senha) {
         $_SESSION['logado'] = true;
         $_SESSION['nome']   = $user['user_name'];

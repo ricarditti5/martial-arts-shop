@@ -13,14 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tmp       = $_FILES['imagem']['tmp_name'];
         $destino   = 'imagens/' . $nomeFinal; 
 
-        // VERIFICAÇÃO: Se o ficheiro NÃO existe, fazemos o upload. 
-        // Se já existe, apenas usamos o nome para a Base de Dados.
         if (!file_exists($destino)) {
             move_uploaded_file($tmp, $destino);
         }
 
-        // Independentemente de ter feito upload agora ou não, 
-        // guardamos o nome no banco de dados.
         $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem, categoria) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("sdss", $artigo, $preco, $nomeFinal, $categoria);        
         if ($stmt->execute()) {
