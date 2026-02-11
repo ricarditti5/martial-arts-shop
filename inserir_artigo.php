@@ -60,10 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
             <label for="categoria" class="form-label">Categoria</label>
             <select class="form-control" name="categoria" id="categoria" required>
-            <option>Luvas</option>
-                <option>Caneleiras</option>
-                <option>Roupas</option>
-                <option>Proteção Facial/Bucal</option>
+            <option value="Luvas">Luvas</option>
+                <option value="Caneleiras">Caneleiras</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Proteção">Proteção Facial/Bucal</option>
+                <option value="Acessórios">Acessórios</option>
             </select>
         </div>
         <button type="submit" class="btn btn-success">Inserir</button>

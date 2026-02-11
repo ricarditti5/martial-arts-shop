@@ -30,7 +30,7 @@ $tipo  = $_SESSION['type_user'] ?? 'user';
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
+                    <a class="nav-link" href="historia.php">Historias das Artes Marciais</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="luvas.php">Luvas</a>
