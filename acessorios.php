@@ -1,6 +1,5 @@
 <?php
 include("conexao.php");
-// Acessórios: Roupas, Proteção Facial/Bucal e Acessórios
 $stmt = $conn->prepare("SELECT * FROM artigo WHERE categoria IN ('Roupas', 'Proteção', 'Acessórios') ORDER BY id_artigo DESC");
 $stmt->execute();
 $result = $stmt->get_result();

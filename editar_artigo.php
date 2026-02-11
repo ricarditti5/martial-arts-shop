@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label class="form-label">Categoria</label>
             <select class="form-control" name="categoria" required>
+            <option class="text-secondary">Nenhuma Categoria</option>
                 <option <?= $dadosAtuais['categoria'] == 'Luvas' ? 'selected' : '' ?>>Luvas</option>
                 <option <?= $dadosAtuais['categoria'] == 'Caneleiras' ? 'selected' : '' ?>>Caneleiras</option>
                 <option <?= $dadosAtuais['categoria'] == 'Roupas' ? 'selected' : '' ?>>Roupas</option>
