@@ -35,7 +35,7 @@ if ($resultado && $resultado->num_rows === 1) {
         $_SESSION['nome']   = $user['user_name'];
         $_SESSION['email']  = $user['user_email'];
         $_SESSION['type_user'] = $user['type_user'];
-        header("Location: backend.php");
+        header("Location: index.php");
         exit();
     } else {
         // Password não coincide

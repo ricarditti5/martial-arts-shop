@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="mt-4">
                 <button type="submit" class="btn btn-primary">Guardar Alterações</button>
-                <a href="backend.php" class="btn btn-secondary">Voltar ao Painel</a>
+                <a href="perfil.php" class="btn btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

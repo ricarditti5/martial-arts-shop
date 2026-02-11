@@ -7,7 +7,7 @@ $email = trim($_POST['email'] ?? '');
 $senha = trim($_POST['senha'] ?? '');
 
 // Registo simples (sem hash de password). Pode ser melhorado depois com password_hash.
-$sql = "INSERT INTO users (user_name, user_email, user_pass) VALUES (?, ?, ?)";
+$sql = "INSERT INTO users (user_name, user_email, user_pass, type_user) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
@@ -16,7 +16,7 @@ if ($stmt === false) {
     exit();
 }
 
-$stmt->bind_param("sss", $nome, $email, $senha);
+$stmt->bind_param("ssss", $nome, $email, $senha);
 
 if ($stmt->execute() && $stmt->affected_rows > 0) {
     // Registo OK, redireciona para o login

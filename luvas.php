@@ -19,7 +19,7 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="historia.php">Historias das Artes Marciais</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="luvas.php">Luvas</a>
@@ -36,14 +36,24 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
                   <li class="nav-item">
                     <a class="nav-link" href="criar_conta.php">Criar Conta</a>
                   </li>
+                  <?php 
+                    // Verificamos diretamente na sessão se o tipo é admin
+                    if (isset($_SESSION['type_user']) && $_SESSION['type_user'] === 'admin') { 
+                    ?>
+                        <li class="nav-item">
+                            <strong><a class="nav-link" href="backend.php">Configurações de Admin</a></strong>
+                        </li>
+                    <?php 
+                    } // Aqui fechamos o IF com uma chave, o que elimina o erro do 'endif'
+                    ?>
                   <li class="nav-item">
-                    <a class="nav-link" href="backend.php">User</a>
+                    <strong><a class="nav-link" href="perfil.php">Perfil</a></strong>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-  <h1>Artigos Disponíveis</h1>
+          <h1>Artigos Disponíveis</h1>
   <div class="row">
     <?php while ($row = $result->fetch_assoc()) : ?>
       <div class="col-md-4">

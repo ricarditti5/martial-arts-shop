@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Proteção: Se não houver sessão, manda para o login
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
 
-// Pegamos os dados da sessão (garanta que o login preenche estes campos)
 $nome  = $_SESSION['nome'] ?? 'Utilizador';
 $email = $_SESSION['email'] ?? 'Não informado';
 $tipo  = $_SESSION['type_user'] ?? 'user';
@@ -17,67 +15,94 @@ $tipo  = $_SESSION['type_user'] ?? 'user';
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Meu Perfil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
-
-<div class="container py-5">
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.php">Home</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.php">Historias das Artes Marciais</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="luvas.php">Luvas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="caneleiras.php">Caneleiras</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="acessorios.php">Acessórios</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="criar_conta.php">Criar Conta</a>
+                  </li>
+                  <?php 
+                    // Verificamos diretamente na sessão se o tipo é admin
+                    if (isset($_SESSION['type_user']) && $_SESSION['type_user'] === 'admin') { 
+                    ?>
+                        <li class="nav-item">
+                            <strong><a class="nav-link" href="backend.php">Configurações de Admin</a></strong>
+                        </li>
+                    <?php 
+                    } // Aqui fechamos o IF com uma chave, o que elimina o erro do 'endif'
+                    ?>
+                  <li class="nav-item">
+                    <strong><a class="nav-link" href="perfil.php">Perfil</a></strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+<div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-sm-10 col-md-8 col-lg-6">
             
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
-                    <div class="rounded-circle bg-white text-primary d-inline-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px; font-size: 2rem; font-weight: bold;">
-                        <?php echo strtoupper(substr($nome, 0, 1)); ?>
-                    </div>
-                    <h4 class="mb-0"><?php echo htmlspecialchars($nome); ?></h4>
-                    <span class="badge <?php echo ($tipo === 'admin') ? 'bg-danger' : 'bg-dark'; ?> mt-2">
-                        <i class="bi bi-shield-check"></i> <?php echo ucfirst($tipo); ?>
-                    </span>
+            <div class="card">
+                <div class="card-header">
+                <h1 class="card-title mb-0">Perfil do Utilizador</h1>
                 </div>
                 
-                <div class="card-body p-4">
-                    <h5 class="text-muted mb-4">Informações Pessoais</h5>
-                    
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 text-primary fs-4">
-                            <i class="bi bi-person-badge"></i>
-                        </div>
-                        <div class="ms-3">
-                            <p class="mb-0 text-muted small">Nome</p>
-                            <p class="mb-0 fw-bold"><?php echo htmlspecialchars($nome); ?></p>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-4 text-muted">Nome:</div>
+                        <div class="col-8"><strong><?php echo htmlspecialchars($nome); ?></strong></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 text-muted">Email:</div>
+                        <div class="col-8"><strong><?php echo htmlspecialchars($email); ?></strong></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 text-muted">Cargo:</div>
+                        <div class="col-8">
+                            <span class="badge <?php echo ($tipo === 'admin') ? 'bg-danger' : 'bg-secondary'; ?>">
+                                <?php echo htmlspecialchars($tipo); ?>
+                            </span>
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 text-primary fs-4">
-                            <i class="bi bi-envelope-at"></i>
-                        </div>
-                        <div class="ms-3">
-                            <p class="mb-0 text-muted small">Endereço de E-mail</p>
-                            <p class="mb-0 fw-bold"><?php echo htmlspecialchars($email); ?></p>
-                        </div>
-                    </div>
+                    <hr>
 
-                    <hr class="my-4">
-
-                    <div class="d-grid gap-2">
-                        <a href="perfil.php" class="btn btn-primary rounded-pill">
-                            <i class="bi bi-pencil-square"></i> Editar Perfil
-                        </a>
-                        <a href="backend.php" class="btn btn-outline-secondary rounded-pill">
-                            <i class="bi bi-arrow-left"></i> Voltar ao Painel
-                        </a>
+                    <div class="d-flex justify-content-between">
+                        <a href="backend.php" class="btn btn-secondary">Voltar</a>
+                        <a href="mudar_perfil.php" class="btn btn-primary">Editar Informações</a>
                     </div>
                 </div>
-                
-                <div class="card-footer text-center bg-white border-0 pb-4">
-                    <a href="logout.php" class="text-danger text-decoration-none small fw-bold">
-                        <i class="bi bi-box-arrow-right"></i> Terminar Sessão
-                    </a>
+
+                <div class="card-footer text-end">
+                    <a href="logout.php" class="btn btn-sm btn-link text-danger">Sair da conta</a>
                 </div>
             </div>
 
