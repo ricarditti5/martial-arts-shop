@@ -81,18 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="mb-3">
             <label class="form-label">Categoria</label>
-            <select class="form-control" name="categoria" required>
+            <select class="form-control" name="categoria">
             <option class="text-secondary">Nenhuma Categoria</option>
                 <option <?= $dadosAtuais['categoria'] == 'Luvas' ? 'selected' : '' ?>>Luvas</option>
                 <option <?= $dadosAtuais['categoria'] == 'Caneleiras' ? 'selected' : '' ?>>Caneleiras</option>
                 <option <?= $dadosAtuais['categoria'] == 'Roupas' ? 'selected' : '' ?>>Roupas</option>
-                <option <?= $dadosAtuais['categoria'] == 'Proteção Facial/Bucal' ? 'selected' : '' ?>>Proteção Facial/Bucal</option>
+                <option <?= $dadosAtuais['categoria'] == 'Proteções' ? 'selected' : '' ?>>Proteções</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="stock" class="form-label">Selecione a Quantidade de stock que pretende. </label>
             <br>
-            <input  class="form-control" type="number" name="stock" required>
+            <input  class="form-control" type="number" name="stock">
         </div>
         <button type="submit" class="btn btn-primary">Guardar Alterações</button>
         <a href="backend.php" class="btn btn-secondary">Cancelar</a>

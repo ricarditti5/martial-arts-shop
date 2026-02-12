@@ -1,6 +1,6 @@
 <?php
 include("conexao.php");
-$stmt = $conn->prepare("SELECT * FROM artigo WHERE categoria IN ('Roupas', 'Proteção', 'Acessórios') ORDER BY id_artigo DESC");
+$stmt = $conn->prepare("SELECT * FROM artigo WHERE categoria IN ('Roupas', 'Proteções', 'Acessórios') ORDER BY id_artigo DESC");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
