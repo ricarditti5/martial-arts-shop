@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Fev-2026 às 15:17
+-- Tempo de geração: 12-Fev-2026 às 11:45
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -44,23 +44,23 @@ CREATE TABLE `artigo` (
 --
 
 INSERT INTO `artigo` (`id_artigo`, `artigo`, `imagem`, `preco`, `stock`, `categoria`) VALUES
-(13, 'Bucal para Luta Venum', 'bucal-venum.jpg', 16, 0, 'Proteção'),
-(14, 'Bucal para Luta Buddha', 'bucal.jpg', 16, 0, 'Proteção'),
-(15, 'Bucal para Luta Leone', 'bucal-leone.jpg', 16, 0, 'Proteção'),
-(16, 'Luva de MMA Buddha', 'luvMMA.jpg', 45, 0, 'Luvas'),
-(17, 'Luva de Boxe Leone', 'luvas-leone.jpg', 52, 0, 'Luvas'),
-(18, 'Luva de Boxe Venum', 'luvas-venum.jpg', 46, 0, 'Luvas'),
-(19, 'Luva de MMA Venum', 'luvas-mma-venum.jpg', 48, 0, 'Luvas'),
-(20, 'Caneleiras de Luta buddha', 'canMMA.jpg', 53, 0, 'Caneleiras'),
-(21, 'Caneleiras de MMA Buddha estilizadas', 'caneleiras-buddha.jpg', 60, 0, 'Caneleiras'),
-(22, 'Caneleiras de Luta Venum', 'caneleiras-venum.jpg', 71, 0, 'Caneleiras'),
-(23, 'Capacete Protetor Venum', 'capacete-venum.jpg', 60, 0, 'Proteção'),
-(24, 'Capacete Protetor Leone', 'capacete-leone.jpg', 60, 0, 'Proteção'),
-(25, 'Saco de Boxe Buddha', 'saco2-buddha.jpg', 130, 0, 'Acessórios'),
-(26, 'Saco de Boxe  Venum', 'saco-venum.jpg', 230, 0, 'Acessórios'),
-(27, 'Saco de Boxe Buddha', 'saco-buddha.jpg', 204, 0, 'Acessórios'),
-(28, 'Bandadem de Luta Venum', 'ligas-venum.jpg', 10, 0, 'Acessórios'),
-(29, 'Bandagem de Luta Buddha', 'ligas-buddha.jpg', 10, 0, 'Acessórios');
+(13, 'Bucal para Luta Venum', 'bucal-venum.jpg', 16, 270, 'Nenhuma Categoria'),
+(14, 'Bucal para Luta Buddha', 'bucal.jpg', 16, 300, 'Nenhuma Categoria'),
+(15, 'Bucal para Luta Leone', 'bucal-leone.jpg', 16, 500, 'Nenhuma Categoria'),
+(16, 'Luva de MMA Buddha', 'luvMMA.jpg', 45, 90, 'Luvas'),
+(17, 'Luva de Boxe Leone', 'luvas-leone.jpg', 52, 250, 'Luvas'),
+(18, 'Luva de Boxe Venum', 'luvas-venum.jpg', 46, 200, 'Luvas'),
+(19, 'Luva de MMA Venum', 'luvas-mma-venum.jpg', 48, 200, 'Luvas'),
+(20, 'Caneleiras de Luta buddha', 'canMMA.jpg', 53, 100, 'Caneleiras'),
+(21, 'Caneleiras de MMA Buddha estilizadas', 'caneleiras-buddha.jpg', 60, 100, 'Caneleiras'),
+(22, 'Caneleiras de Luta Venum', 'caneleiras-venum.jpg', 71, 100, 'Caneleiras'),
+(23, 'Capacete Protetor Venum', 'capacete-venum.jpg', 60, 50, 'Nenhuma Categoria'),
+(24, 'Capacete Protetor Leone', 'capacete-leone.jpg', 60, 50, 'Nenhuma Categoria'),
+(25, 'Saco de Boxe Buddha', 'saco2-buddha.jpg', 130, 16, 'Nenhuma Categoria'),
+(26, 'Saco de Boxe  Venum', 'saco-venum.jpg', 230, 10, 'Nenhuma Categoria'),
+(27, 'Saco de Boxe Buddha', 'saco-buddha.jpg', 204, 10, 'Nenhuma Categoria'),
+(28, 'Bandadem de Luta Venum', 'ligas-venum.jpg', 10, 20, 'Nenhuma Categoria'),
+(29, 'Bandagem de Luta Buddha', 'ligas-buddha.jpg', 10, 23, 'Nenhuma Categoria');
 
 -- --------------------------------------------------------
 

@@ -4,6 +4,7 @@ include("conexao.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $artigo    = $_POST['artigo'];
     $preco     = $_POST['preco'];
+    $stock = $_POST['stock'];
     $categoria = $_POST['categoria'];
 
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
@@ -17,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($tmp, $destino);
         }
 
-        $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem, categoria) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdss", $artigo, $preco, $nomeFinal, $categoria);        
+        $stmt = $conn->prepare("INSERT INTO artigo (artigo, preco, imagem,stock, categoria) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sdsis", $artigo, $preco, $nomeFinal,$stock ,$categoria);        
         if ($stmt->execute()) {
             header("Location: backend.php?sucesso=1");
             exit();
@@ -63,6 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <option value="Proteção">Proteção Facial/Bucal</option>
                 <option value="Acessórios">Acessórios</option>
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Selecione a Quantidade de stock que pretende. </label>
+            <br>
+            <input  class="form-control" type="number" name="stock" id="stock" step="0" required>
         </div>
         <button type="submit" class="btn btn-success">Inserir</button>
         <a href="backend.php" class="btn btn-secondary">Voltar</a>

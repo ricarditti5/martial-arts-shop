@@ -66,6 +66,7 @@ $result = $stmt->get_result();
           <div class="card-body">
             <h5 class="card-title"><?= htmlspecialchars($row['artigo']) ?></h5>
             <p class="card-text"><strong>Preço:</strong> €<?= number_format($row['preco'], 2, ',', '.') ?></p>
+            <button class="btn btn-primary" <?= ($row['stock'] <= 0) ? 'disabled' : '' ?> onclick="alert('<?= ($row['stock'] > 0) ? 'Compra realizada com sucesso!' : 'Stock Indisponível!' ?>')"> Comprar</button>
           </div>
         </div>
       </div>

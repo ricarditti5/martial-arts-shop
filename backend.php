@@ -68,13 +68,13 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
   <p>Bem-vindo, <?= $_SESSION['nome'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
   <a href="inserir_artigo.php" class="btn btn-success mb-3">Novo Artigo</a>
   <table class="table table-striped">
-  <tr><th>Artigo</th><th>Preço</th><th>Imagem</th></tr>
+  <tr><th>Artigo</th><th>Preço</th><th>Imagem</th><th>Stock</th></tr>
     <?php while ($row = $result->fetch_assoc()) : ?>
       <tr>
         <td><?= htmlspecialchars($row['artigo']) ?></td>
         <td>€<?= number_format($row['preco'], 2, ',', '.') ?></td>
         <td><img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" width="60"></td>
-        <td <?= htmlspecialchars($row['stock'] )>= 1 ? "Disponivel" : "Indisponivel" ?>></td>
+        <td> <?= htmlspecialchars($row['stock'] )>= 1 ? number_format($row['stock']) : "Indisponivel" ?></td>
         <td class="pt-3">
         <a href="editar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-warning btn-sm">Editar</a>
         <a href="eliminar_artigo.php?id=<?= $row['id_artigo'] ?>" class="btn btn-danger btn-sm">Eliminar</a>

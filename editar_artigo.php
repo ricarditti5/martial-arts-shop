@@ -21,6 +21,7 @@ $dadosAtuais = $stmt->get_result()->fetch_assoc();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $artigo    = $_POST['artigo'];
     $preco     = $_POST['preco'];
+    $stock     = $_POST['stock'];
     $categoria = $_POST['categoria'];
     
     //msm imagem da db
@@ -38,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($tmp, $destino);
     }
 
-    $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ?, categoria = ? WHERE id_artigo = ?");
-    $stmt->bind_param("sdssi", $artigo, $preco, $nomeFinal, $categoria, $id);
+    $stmt = $conn->prepare("UPDATE artigo SET artigo = ?, preco = ?, imagem = ?, stock = ?, categoria = ? WHERE id_artigo = ?");
+    $stmt->bind_param("sdsisi", $artigo, $preco, $nomeFinal,$stock, $categoria, $id);
 
     if ($stmt->execute()) {
         header("Location: backend.php?editado=1");
@@ -88,7 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option <?= $dadosAtuais['categoria'] == 'Proteção Facial/Bucal' ? 'selected' : '' ?>>Proteção Facial/Bucal</option>
             </select>
         </div>
-
+        <div class="mb-3">
+            <label for="stock" class="form-label">Selecione a Quantidade de stock que pretende. </label>
+            <br>
+            <input  class="form-control" type="number" name="stock" required>
+        </div>
         <button type="submit" class="btn btn-primary">Guardar Alterações</button>
         <a href="backend.php" class="btn btn-secondary">Cancelar</a>
     </form>
