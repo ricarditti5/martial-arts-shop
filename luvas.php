@@ -48,7 +48,7 @@ $result = $stmt->get_result();
                             <strong><a class="nav-link" href="backend.php">Configurações de Admin</a></strong>
                         </li>
                     <?php 
-                    } // Aqui fecha o IF com uma chave, o que elimina o erro do 'endif'
+                    }
                     ?>
                   <li class="nav-item">
                     <strong><a class="nav-link" href="perfil.php">Perfil</a></strong>
