@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 2. CORREÇÃO SQL: Faltava uma vírgula antes de 'senha'
     // IMPORTANTE: Em produção, use password_hash para a senha!
-    $sql = "UPDATE users SET user_name = ?, user_email = ?, user_pass = ? WHERE id = ?";
+    $sql = "UPDATE users SET user_name = ?, user_email = ?, user_pass = ? WHERE user_id = ?";
     
     // Usando o objeto de conexão correto (ajuste se a sua variável for $conn ou $pdo)
     $stmt = $conn->prepare($sql); 
