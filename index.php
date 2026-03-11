@@ -36,6 +36,9 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
                   <li class="nav-item">
                     <a class="nav-link" href="criar_conta.php">Criar Conta</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="ver_carrinho.php">Carrinho</a>
+                  </li>
                   <?php 
                     // Verificamos diretamente na sessão se o tipo é admin
                     if (isset($_SESSION['type_user']) && $_SESSION['type_user'] === 'admin') { 
@@ -62,7 +65,11 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
           <div class="card-body">
             <h5 class="card-title"><?= htmlspecialchars($row['artigo']) ?></h5>
             <p class="card-text"><strong>Preço:</strong> €<?= number_format($row['preco'], 2, ',', '.') ?></p>
-            <button class="btn btn-primary" <?= ($row['stock'] <= 0 || !isset($_SESSION['logado'])) ? 'disabled' : '' ?> onclick="alert('<?= ($row['stock'] > 0) ? 'Compra realizada com sucesso!' : 'Stock Indisponível!' ?>')"> Comprar</button>
+          <form method="post" action="adicionar_carrinho.php"> 
+          <input type="hidden" name="id_produto" value="<?= htmlspecialchars($row['id_artigo'])?>">
+          <button type="submit" class="btn btn-success btn-sm">Adicionar ao Carrinho</button>
+
+          </form>
           </div>
         </div>
       </div>

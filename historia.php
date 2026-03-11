@@ -42,6 +42,9 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
                   <li class="nav-item">
                     <a class="nav-link" href="criar_conta.php">Criar Conta</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="ver_carrinho.php">Carrinho</a>
+                  </li>
                   <?php 
                     // Verificamos diretamente na sessão se o tipo é admin
                     if (isset($_SESSION['type_user']) && $_SESSION['type_user'] === 'admin') { 
@@ -59,7 +62,6 @@ $result = $conn->query("SELECT * FROM artigo ORDER BY id_artigo DESC");
               </div>
             </div>
           </nav>
-
 <header class="bg-white py-5 border-bottom shadow-sm">
     <div class="container">
         <div class="row align-items-center">
