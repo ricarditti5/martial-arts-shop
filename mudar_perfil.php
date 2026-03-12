@@ -1,14 +1,12 @@
 <?php
 session_start();
-include("conexao.php"); // Certifique-se que este ficheiro usa PDO ou ajuste para MySQLi
+include("conexao.php");
 
-// 1. Verificação de Segurança (Só entra se estiver logado)
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
 
-// Supondo que você guardou o ID do utilizador na sessão no momento do login:
 $id_utilizador = $_SESSION['user_id'] ?? 0; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,15 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
 
-    // 2. CORREÇÃO SQL: Faltava uma vírgula antes de 'senha'
-    // IMPORTANTE: Em produção, use password_hash para a senha!
     $sql = "UPDATE users SET user_name = ?, user_email = ?, user_pass = ? WHERE user_id = ?";
     
-    // Usando o objeto de conexão correto (ajuste se a sua variável for $conn ou $pdo)
     $stmt = $conn->prepare($sql); 
     
     if ($stmt->execute([$nome, $email, $senha, $id_utilizador])) {
-        // Atualiza os nomes na sessão para refletir a mudança imediatamente
         $_SESSION['nome'] = $nome;
         $_SESSION['email'] = $email;
         
@@ -62,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="mb-3">
                 <label class="form-label">Nova Password</label>
-                <input type="password" name="senha" class="form-control" placeholder="Digite a nova senha" required/>
+                <input type="password" name="senha" class="form-control" placeholder="Digite a nova senha" value="<?php echo htmlspecialchars($_SESSION['senha']); ?>" required/>
             </div>
 
             <div class="mt-4">
