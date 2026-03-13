@@ -1,11 +1,12 @@
 <?php
 include("conexao.php");
+$result = $conn->query("SELECT * FROM tipos_artigos");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $artigo    = $_POST['artigo'];
     $preco     = $_POST['preco'];
     $stock = $_POST['stock'];
-    $categoria = $_POST['categoria'];
+    $categoria = $_POST['tipo_artigo'];
 
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
         
@@ -57,12 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
             <label for="categoria" class="form-label">Categoria</label>
             <select class="form-control" name="categoria" id="categoria" required>
-            <option class="text-secondary">Nenhuma Categoria</option>
-                <option value="Luvas">Luvas</option>
-                <option value="Caneleiras">Caneleiras</option>
-                <option value="Roupas">Roupas</option>
-                <option value="Proteção">Proteção Facial/Bucal</option>
-                <option value="Acessórios">Acessórios</option>
+                <option class="text-secondary">Nenhuma Categoria</option>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                <option value=<?= htmlspecialchars($row['tipo_artigo']) ?>><?= htmlspecialchars($row['designacao']) ?></option>
+                <?php endwhile; ?>
             </select>
         </div>
         <div class="mb-3">

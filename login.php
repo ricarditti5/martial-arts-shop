@@ -13,7 +13,7 @@
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white">
           <div class="card-body p-5 text-center">
-          <a class="navbar-brand" href="index.php">Home</a>
+          <a class="navbar-brand text-danger" href="index.php">Home</a>
           <hr>
             <form action="valida_login.php" method="POST">
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>

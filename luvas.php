@@ -1,8 +1,7 @@
 <?php
+session_start();
 include("conexao.php");
-$stmt = $conn->prepare("SELECT * FROM artigo WHERE categoria = ? ORDER BY id_artigo DESC");
-$categoria = 'Luvas';
-$stmt->bind_param("s", $categoria);
+$stmt = $conn->prepare("SELECT * FROM artigo WHERE tipo_artigo = 2 ");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -14,9 +13,9 @@ $result = $stmt->get_result();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4 bg-black text-white">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="index.php">Home</a>
+              <a class="navbar-brand text-danger" href="index.php">Home</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -60,11 +59,11 @@ $result = $stmt->get_result();
               </div>
             </div>
           </nav>
-          <h1>Artigos Disponíveis</h1>
+          <h1 class="text-danger">Artigos Disponíveis</h1>
   <div class="row">
     <?php while ($row = $result->fetch_assoc()) : ?>
       <div class="col-md-4">
-        <div class="card mb-3">
+        <div class="card mb-3 bg-secondary text-white">
           <img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" class="card-img-top" alt="Imagem">
           <div class="card-body">
             <h5 class="card-title"><?= htmlspecialchars($row['artigo']) ?></h5>
@@ -72,6 +71,7 @@ $result = $stmt->get_result();
             <form method="post" action="adicionar_carrinho.php"> 
           <input type="hidden" name="id_produto" value="<?= htmlspecialchars($row['id_artigo'])?>">
           <button type="submit" class="btn btn-success btn-sm">Adicionar ao Carrinho</button>
+          </form>
           </div>
         </div>
       </div>

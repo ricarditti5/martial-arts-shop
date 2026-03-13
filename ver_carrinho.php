@@ -19,9 +19,9 @@ $total = 0;
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4 bg-black text-white">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="index.php">Home</a>
+              <a class="navbar-brand text-danger" href="index.php">Home</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -124,10 +124,8 @@ $resultado = $stmt->get_result();
     <td colspan="4"><strong>Total</strong></td>
     <td colspan="2"><strong><?= number_format($total, 2) ?> €</strong></td>
 </tr>
-
-   
-
   </table>
   <?php endif; ?>
+  <a href="index.php" class="btn btn-secondary">Continuar Comprando</a>
 </body>
 </html>

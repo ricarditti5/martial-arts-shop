@@ -1,5 +1,6 @@
 <?php
 include("conexao.php");
+$result = $conn->query("SELECT * FROM tipos_artigos");
 
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
@@ -80,14 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Categoria</label>
-            <select class="form-control" name="categoria">
-            <option class="text-secondary">Nenhuma Categoria</option>
-                <option <?= $dadosAtuais['categoria'] == 'Luvas' ? 'selected' : '' ?>>Luvas</option>
-                <option <?= $dadosAtuais['categoria'] == 'Caneleiras' ? 'selected' : '' ?>>Caneleiras</option>
-                <option <?= $dadosAtuais['categoria'] == 'Roupas' ? 'selected' : '' ?>>Roupas</option>
-                <option <?= $dadosAtuais['categoria'] == 'Proteções' ? 'selected' : '' ?>>Proteções</option>
-            </select>
+        <label for="categoria" class="form-label">Categoria</label>
+        <select class="form-control" name="categoria" id="categoria" required>
+                <option class="text-secondary">Nenhuma Categoria</option>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                <option value=<?= htmlspecialchars($row['tipo_artigo']) ?>><?= htmlspecialchars($row['designacao']) ?></option>
+                <?php endwhile; ?>             
+        </select>
         </div>
         <div class="mb-3">
             <label for="stock" class="form-label">Selecione a Quantidade de stock que pretende. </label>

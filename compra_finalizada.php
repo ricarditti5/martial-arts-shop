@@ -1,26 +1,23 @@
 <?php
-session_start();
+include("conexao.php");
 
-if (!isset($_SESSION['logado'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['ultima_compra'])) {
+    header("Location: index.php");
     exit();
 }
 
-$nome  = $_SESSION['nome'] ?? 'Utilizador';
-$email = $_SESSION['email'] ?? 'Não informado';
-$tipo  = $_SESSION['type_user'] ?? 'user';
+$compra = $_SESSION['ultima_compra'];
+unset($_SESSION['ultima_compra']);
 ?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Meu Perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra Realizada - Martial Arts Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-4 bg-black text-white">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
               <a class="navbar-brand text-danger" href="index.php">Home</a>
@@ -67,50 +64,55 @@ $tipo  = $_SESSION['type_user'] ?? 'user';
               </div>
             </div>
           </nav>
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-sm-10 col-md-8 col-lg-6">
-            
-            <div class="card">
-                <div class="card-header">
-                <h1 class="card-title mb-0">Perfil do Utilizador</h1>
-                </div>
-                
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-4 text-muted">Nome:</div>
-                        <div class="col-8"><strong><?php echo htmlspecialchars($nome); ?></strong></div>
-                    </div>
+        <div class="col-md-8">
+            <div class="card confirmation-card">
+                <div class="card-body p-5 text-center">
 
-                    <div class="row mb-3">
-                        <div class="col-4 text-muted">Email:</div>
-                        <div class="col-8"><strong><?php echo htmlspecialchars($email); ?></strong></div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-4 text-muted">Tipo de Utilizador:</div>
-                        <div class="col-8">
-                            <span class="badge <?php echo ($tipo === 'admin') ? 'bg-danger' : 'bg-secondary'; ?>">
-                                <?php echo htmlspecialchars($tipo); ?>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="success-icon mb-3">✅</div>
+                    <h1 class="fw-bold mb-1">Compra Realizada!</h1>
+                    <p class="text-muted mb-4">Obrigado pela sua compra. O seu pedido foi registado com sucesso.</p>
+                    <p class="text-muted"><small>Data: <?= htmlspecialchars($compra['data']) ?></small></p>
 
                     <hr>
 
-                    <div class="d-flex justify-content-between">
-                        <a href="backend.php" class="btn btn-secondary">Voltar</a>
-                        <a href="mudar_perfil.php" class="btn btn-primary">Editar Informações</a>
-                    </div>
-                </div>
+                    <h5 class="text-start mb-3">Resumo do Pedido</h5>
+                    <table class="table table-hover text-start">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Produto</th>
+                                <th class="text-center">Qtd.</th>
+                                <th class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($compra['itens'] as $item): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($item['nome']) ?></td>
+                                    <td class="text-center"><?= $item['quantidade'] ?></td>
+                                    <td class="text-end">€<?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td colspan="2" class="text-end">Total:</td>
+                                <td class="text-end">€<?= number_format($compra['total'], 2, ',', '.') ?></td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-                <div class="card-footer text-end">
-                    <a href="logout.php" class="btn btn-sm btn-link text-danger">Sair da conta</a>
+                    <div class="mt-4">
+                        <a href="index.php" class="btn btn-voltar btn-lg px-5">Continuar a Comprar</a>
+                    </div>
+
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
