@@ -1,12 +1,14 @@
 <?php
 include("conexao.php");
 
-if (!isset($_SESSION['ultima_compra'])) {
+/**if (!isset($_SESSION['ultima_compra'])) {
     header("Location: index.php");
     exit();
-}
+} */
+
 
 $compra = $_SESSION['ultima_compra'];
+
 unset($_SESSION['ultima_compra']);
 ?>
 <!DOCTYPE html>

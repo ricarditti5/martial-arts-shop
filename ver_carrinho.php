@@ -127,5 +127,6 @@ $resultado = $stmt->get_result();
   </table>
   <?php endif; ?>
   <a href="index.php" class="btn btn-secondary">Continuar Comprando</a>
+  <a href="compra_finalizada.php" class="btn btn-success">Finalizar Compra</a>
 </body>
 </html>
