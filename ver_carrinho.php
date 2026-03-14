@@ -72,7 +72,7 @@ $total = 0;
 <?php else : ?>
 
 
-  <p>Bem-vindo, <?= $_SESSION['email'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
+  <p>Bem-vindo, <?= $_SESSION['nome'] ?>! <a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
   
   <table class="table table-striped">
     <tr>
