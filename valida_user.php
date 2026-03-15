@@ -20,7 +20,13 @@ $stmt->bind_param("ssss", $nome, $email, $senha,$tipoUsuario);
 
 if ($stmt->execute() && $stmt->affected_rows > 0) {
     $_SESSION['erro'] = null;
-    header("Location: login.php");
+    // Logar automaticamente após criar conta
+    $_SESSION['logado'] = true;
+    $_SESSION['user_id'] = $conn->insert_id;
+    $_SESSION['nome'] = $nome;
+    $_SESSION['email'] = $email;
+    $_SESSION['type_user'] = $tipoUsuario;
+    header("Location: index.php");
     exit();
 } else {
     $_SESSION['erro'] = "Não foi possível criar a conta. Tente novamente.";

@@ -1,15 +1,33 @@
 <?php
+session_start();
 include("conexao.php");
 
-/**if (!isset($_SESSION['ultima_compra'])) {
-    header("Location: index.php");
+if (!isset($_SESSION['logado'])) {
+    header("Location: login.php");
     exit();
-} */
+}
 
+$user_id = $_SESSION['user_id'] ?? 0;
+if ($user_id <= 0) {
+    header("Location: login.php");
+    exit();
+}
 
-$compra = $_SESSION['ultima_compra'];
+if (empty($_SESSION['carrinho'])) {
+  echo "<script type='text/javascript'>
+          alert('O carrinho está vazio. Adicione produtos antes de finalizar a compra.');
+          window.location.href = 'index.php';
+        </script>";
+  exit();
+}
 
-unset($_SESSION['ultima_compra']);
+// Limpar carrinho na DB
+$stmt = $conn->prepare("DELETE FROM carrinho WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->close();
+
+unset($_SESSION['carrinho']); // Limpar carrinho após compra
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -75,32 +93,8 @@ unset($_SESSION['ultima_compra']);
                     <div class="success-icon mb-3">✅</div>
                     <h1 class="fw-bold mb-1">Compra Realizada!</h1>
                     <p class="text-muted mb-4">Obrigado pela sua compra. O seu pedido foi registado com sucesso.</p>
-                    <p class="text-muted"><small>Data: <?= htmlspecialchars($compra['data']) ?></small></p>
 
-                    <hr>
-
-                    <h5 class="text-start mb-3">Resumo do Pedido</h5>
-                    <table class="table table-hover text-start">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Produto</th>
-                                <th class="text-center">Qtd.</th>
-                                <th class="text-end">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($compra['itens'] as $item): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($item['nome']) ?></td>
-                                    <td class="text-center"><?= $item['quantidade'] ?></td>
-                                    <td class="text-end">€<?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                        <tfoot>
-                            <tr class="total-row">
-                                <td colspan="2" class="text-end">Total:</td>
-                                <td class="text-end">€<?= number_format($compra['total'], 2, ',', '.') ?></td>
+                    <a href="index.php" class="btn btn-primary">Voltar à Loja</a>
                             </tr>
                         </tfoot>
                     </table>

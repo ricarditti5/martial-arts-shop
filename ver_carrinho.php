@@ -8,6 +8,23 @@ if (!isset($_SESSION['logado'])) {
 }
 
 $carrinho = $_SESSION['carrinho'] ?? [];
+
+// Se o carrinho em sessão estiver vazio, carregar da DB
+if (empty($carrinho)) {
+    $user_id = $_SESSION['user_id'] ?? 0;
+    if ($user_id > 0) {
+        $stmt = $conn->prepare("SELECT id_artigo, quantidade FROM carrinho WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $carrinho[$row['id_artigo']] = $row['quantidade'];
+        }
+        $stmt->close();
+        $_SESSION['carrinho'] = $carrinho;
+    }
+}
+
 $total = 0;
 ?>
 
@@ -97,6 +114,12 @@ $resultado = $stmt->get_result();
     
     $row = $resultado->fetch_assoc();
 
+    if (!$row) {
+        //se n tiver o produto, pula
+        $stmt->close();
+        continue;
+    }
+
     $subtotal = $row['preco'] * $quantidade;
     $total += $subtotal;
 ?>
@@ -118,7 +141,10 @@ $resultado = $stmt->get_result();
     </td>
 
       </tr>
- <?php } ?>
+ <?php 
+    $stmt->close();
+} 
+?>
 
 <tr>
     <td colspan="4"><strong>Total</strong></td>

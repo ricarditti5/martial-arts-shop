@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Fev-2026 às 11:45
+-- Tempo de geração: 15-Mar-2026 às 16:16
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -36,31 +36,65 @@ CREATE TABLE `artigo` (
   `imagem` varchar(1000) NOT NULL,
   `preco` decimal(11,0) NOT NULL,
   `stock` int(11) NOT NULL,
-  `categoria` varchar(255) DEFAULT NULL
+  `tipo_artigo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `artigo`
 --
 
-INSERT INTO `artigo` (`id_artigo`, `artigo`, `imagem`, `preco`, `stock`, `categoria`) VALUES
-(13, 'Bucal para Luta Venum', 'bucal-venum.jpg', 16, 270, 'Nenhuma Categoria'),
-(14, 'Bucal para Luta Buddha', 'bucal.jpg', 16, 300, 'Nenhuma Categoria'),
-(15, 'Bucal para Luta Leone', 'bucal-leone.jpg', 16, 500, 'Nenhuma Categoria'),
-(16, 'Luva de MMA Buddha', 'luvMMA.jpg', 45, 90, 'Luvas'),
-(17, 'Luva de Boxe Leone', 'luvas-leone.jpg', 52, 250, 'Luvas'),
-(18, 'Luva de Boxe Venum', 'luvas-venum.jpg', 46, 200, 'Luvas'),
-(19, 'Luva de MMA Venum', 'luvas-mma-venum.jpg', 48, 200, 'Luvas'),
-(20, 'Caneleiras de Luta buddha', 'canMMA.jpg', 53, 100, 'Caneleiras'),
-(21, 'Caneleiras de MMA Buddha estilizadas', 'caneleiras-buddha.jpg', 60, 100, 'Caneleiras'),
-(22, 'Caneleiras de Luta Venum', 'caneleiras-venum.jpg', 71, 100, 'Caneleiras'),
-(23, 'Capacete Protetor Venum', 'capacete-venum.jpg', 60, 50, 'Nenhuma Categoria'),
-(24, 'Capacete Protetor Leone', 'capacete-leone.jpg', 60, 50, 'Nenhuma Categoria'),
-(25, 'Saco de Boxe Buddha', 'saco2-buddha.jpg', 130, 16, 'Nenhuma Categoria'),
-(26, 'Saco de Boxe  Venum', 'saco-venum.jpg', 230, 10, 'Nenhuma Categoria'),
-(27, 'Saco de Boxe Buddha', 'saco-buddha.jpg', 204, 10, 'Nenhuma Categoria'),
-(28, 'Bandadem de Luta Venum', 'ligas-venum.jpg', 10, 20, 'Nenhuma Categoria'),
-(29, 'Bandagem de Luta Buddha', 'ligas-buddha.jpg', 10, 23, 'Nenhuma Categoria');
+INSERT INTO `artigo` (`id_artigo`, `artigo`, `imagem`, `preco`, `stock`, `tipo_artigo`) VALUES
+(13, 'Bucal para Luta Venum', 'bucal-venum.jpg', 16, 200, 3),
+(14, 'Bucal para Luta Buddha', 'bucal.jpg', 16, 200, 3),
+(15, 'Bucal para Luta Leone', 'bucal-leone.jpg', 16, 200, 3),
+(16, 'Luva de MMA Buddha', 'luvMMA.jpg', 45, 90, 2),
+(17, 'Luva de Boxe Leone', 'luvas-leone.jpg', 52, 250, 2),
+(18, 'Luva de Boxe Venum', 'luvas-venum.jpg', 46, 200, 2),
+(19, 'Luva de MMA Venum', 'luvas-mma-venum.jpg', 48, 200, 2),
+(20, 'Caneleiras de Luta buddha', 'canMMA.jpg', 53, 100, 1),
+(21, 'Caneleiras de MMA Buddha estilizadas', 'caneleiras-buddha.jpg', 60, 100, 1),
+(22, 'Caneleiras de Luta Venum', 'caneleiras-venum.jpg', 71, 100, 1),
+(23, 'Capacete Protetor Venum', 'capacete-venum.jpg', 60, 200, 3),
+(24, 'Capacete Protetor Leone', 'capacete-leone.jpg', 60, 200, 3),
+(25, 'Saco de Boxe Buddha', 'saco2-buddha.jpg', 130, 200, 3),
+(26, 'Saco de Boxe  Venum', 'saco-venum.jpg', 230, 200, 3),
+(27, 'Saco de Boxe Buddha', 'saco-buddha.jpg', 204, 200, 3),
+(28, 'Bandadem de Luta Venum', 'ligas-venum.jpg', 10, 200, 3),
+(29, 'Bandagem de Luta Buddha', 'ligas-buddha.jpg', 10, 200, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carrinho`
+--
+
+DROP TABLE IF EXISTS `carrinho`;
+CREATE TABLE `carrinho` (
+  `id_artigo` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipos_artigos`
+--
+
+DROP TABLE IF EXISTS `tipos_artigos`;
+CREATE TABLE `tipos_artigos` (
+  `tipo_artigo` int(11) NOT NULL,
+  `designacao` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tipos_artigos`
+--
+
+INSERT INTO `tipos_artigos` (`tipo_artigo`, `designacao`) VALUES
+(1, 'Caneleiras'),
+(2, 'Luvas'),
+(3, 'Acessórios');
 
 -- --------------------------------------------------------
 
@@ -84,7 +118,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_pass`, `type_user`) VALUES
 (1, 'Ricardo', 'ricarditti5@gmail.com', 1234, 'admin'),
 (6, 'Gonçalo', 'goncalo@gmail.com', 1234, 'user'),
-(7, 'Daniel', 'daniel@gmail.com', 1234, 'user');
+(7, 'Daniel', 'daniel@gmail.com', 1234, 'user'),
+(8, 'Professor Pedro', 'pedro@gmail.com', 1234, 'user');
 
 --
 -- Índices para tabelas despejadas
@@ -94,7 +129,21 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_pass`, `type_us
 -- Índices para tabela `artigo`
 --
 ALTER TABLE `artigo`
-  ADD PRIMARY KEY (`id_artigo`);
+  ADD PRIMARY KEY (`id_artigo`),
+  ADD KEY `tipo_artigo` (`tipo_artigo`);
+
+--
+-- Índices para tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD KEY `id_artigo` (`id_artigo`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Índices para tabela `tipos_artigos`
+--
+ALTER TABLE `tipos_artigos`
+  ADD PRIMARY KEY (`tipo_artigo`);
 
 --
 -- Índices para tabela `users`
@@ -113,10 +162,33 @@ ALTER TABLE `artigo`
   MODIFY `id_artigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
+-- AUTO_INCREMENT de tabela `tipos_artigos`
+--
+ALTER TABLE `tipos_artigos`
+  MODIFY `tipo_artigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `artigo`
+--
+ALTER TABLE `artigo`
+  ADD CONSTRAINT `artigo_ibfk_1` FOREIGN KEY (`tipo_artigo`) REFERENCES `tipos_artigos` (`tipo_artigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_artigo`) REFERENCES `artigo` (`id_artigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

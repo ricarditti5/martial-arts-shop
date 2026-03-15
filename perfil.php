@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("conexao.php");
 
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
@@ -95,9 +96,7 @@ $tipo  = $_SESSION['type_user'] ?? 'user';
                             </span>
                         </div>
                     </div>
-
                     <hr>
-
                     <div class="d-flex justify-content-between">
                         <a href="backend.php" class="btn btn-secondary">Voltar</a>
                         <a href="mudar_perfil.php" class="btn btn-primary">Editar Informações</a>
