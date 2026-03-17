@@ -26,7 +26,6 @@ if (isset($_POST['id_produto'])) {
         $_SESSION['carrinho'][$id_produto] = 1;
     }
 
-    // Inserir ou atualizar na tabela carrinho
     $stmt = $conn->prepare("INSERT INTO carrinho (id_artigo, user_id, quantidade) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE quantidade = quantidade + 1");
     if ($stmt) {
         $stmt->bind_param("ii", $id_produto, $user_id);
