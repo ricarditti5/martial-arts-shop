@@ -9,7 +9,7 @@ if (isset($_POST['id_produto'])) {
     $id_produto = intval($_POST['id_produto']);
 
     if ($user_id <= 0) {
-        // Se não estiver logado, redireciona para login
+        // manda pro login se n tiver logado
         header("Location: login.php");
         exit();
     }
