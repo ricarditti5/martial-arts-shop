@@ -33,6 +33,6 @@ if (isset($_POST['id_produto'])) {
         $stmt->close();
     }
 
-    header("Location: ver_carrinho.php");
+    header("Location:" . $_SERVER['HTTP_REFERER']);
     exit();
 }

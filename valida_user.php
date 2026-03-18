@@ -5,6 +5,7 @@ include("conexao.php");
 $nome  = trim($_POST['nome']  ?? '');
 $email = trim($_POST['email'] ?? '');
 $senha = trim($_POST['senha'] ?? '');
+$user_id = trim($_POST['user_id'] ?? '');
 $tipoUsuario = $_SESSION['type_user'] ?? 'user';
 
 $sql = "INSERT INTO users (user_name, user_email, user_pass, type_user) VALUES (?, ?, ?, ?)";
@@ -20,9 +21,8 @@ $stmt->bind_param("ssss", $nome, $email, $senha,$tipoUsuario);
 
 if ($stmt->execute() && $stmt->affected_rows > 0) {
     $_SESSION['erro'] = null;
-    // Logar automaticamente após criar conta
     $_SESSION['logado'] = true;
-    $_SESSION['user_id'] = $conn->insert_id;
+    $_SESSION['user_id'] = $user_id;
     $_SESSION['nome'] = $nome;
     $_SESSION['email'] = $email;
     $_SESSION['type_user'] = $tipoUsuario;
